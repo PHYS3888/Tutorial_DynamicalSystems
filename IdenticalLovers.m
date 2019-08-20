@@ -1,8 +1,8 @@
 function sys = IdenticalLovers()
     % LinearODE  Linear Ordinary Differential Equation in two variables
     %   Implements the system of linear ordinary differential equations
-    %        x'(t) = a*x(t) + b*y(t)
-    %        y'(t) = b*x(t) + a*y(t)
+    %        H'(t) = a*H(t) + b*C(t)
+    %        C'(t) = b*H(t) + a*C(t)
     %   for use with the Brain Dynamics Toolbox.
     %
     % Example 1: Using the Brain Dynamics graphical toolbox
@@ -61,8 +61,8 @@ function sys = IdenticalLovers()
                    struct('name','b', 'value',1)];
 
     % ODE variable definitions
-    sys.vardef = [ struct('name','x', 'value',2*rand-1);
-                   struct('name','y', 'value',2*rand-1) ];
+    sys.vardef = [ struct('name','H', 'value',2*rand-1);
+                   struct('name','C', 'value',2*rand-1) ];
 
     % Latex (Equations) panel
     sys.panels.bdLatexPanel.title = 'Equations';
@@ -70,8 +70,8 @@ function sys = IdenticalLovers()
         '\textbf{IdenticalLovers}';
         '';
         'System of linear ordinary differential equations';
-        '\qquad $\dot x(t) = a\,x(t) + b\,y(t)$';
-        '\qquad $\dot y(t) = b\,x(t) + a\,y(t)$';
+        '\qquad $\dot H(t) = a\,H(t) + b\,H(t)$';
+        '\qquad $\dot H(t) = b\,H(t) + a\,H(t)$';
         'where $a,b$ are constants.';
         };
 
@@ -85,7 +85,7 @@ function sys = IdenticalLovers()
     sys.panels.bdSolverPanel = [];
 
     % Default time span (optional)
-    sys.tspan = [0 20];
+    sys.tspan = [0 5];
 
     % Specify the relevant ODE solvers (optional)
     sys.odesolver = {@ode45,@ode23,@odeEul};

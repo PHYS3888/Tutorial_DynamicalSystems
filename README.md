@@ -4,139 +4,148 @@ Some of the material from this tutorial is based on information developed by Stu
 
 ### Dependencies
 You will first need to download the [Brain Dynamics Toolbox](https://bdtoolbox.org/): scroll down and press the 'Subscribe and Download' button.
-Navigate Matlab to the Brain Dynamics Toolbox directory and add the relevant paths to models (e.g., you may need to `addpath('models')`)
+This tutorial assumes that you will be running all code from within this tutorial directory.
+To access the functions in the Brain Dynamics Toolbox, you will need to tell Matlab where to look:
 
-## The linear ODE
-
-A two-dimensional linear system is a good place to start.
-Recall:
-```math
-    dx/dt = a*x + b*y
-    dy/dt = c*x + d*y
-```
-where `a,b,c,d` are constants.
-
-Let's get started:
+Navigate to the directory in which the Brain Dynamics Toolbox is installed and run:
 ```matlab
+% Tell Matlab to look in the current directory:
+addpath(pwd)
+% Tell Matlab to also look in the models subdirectory:
+addpath(fullfile(pwd,'models'))
+```
+
+Ok, now let's head back to the tutorial directly, and we're ready to start the tutorial.
+
+## Part 1: The Linear ODE
+
+The two-dimensional linear ordinary differential equation is a good place to start for understanding some basic concepts related to linear dynamical systems.
+
+Recall from lectures that:
+```math
+dx/dt = ax + by
+dy/dt = cx + dy
+```
+where `a`, `b`, `c`, `d` are constants.
+
+### Getting a feel for The Brain Dynamics Toolbox
+
+Let's get started exploring this simple system using BDToolbox.
+Change your path to where you downloaded BDtoolbox and run the following code:
+```matlab
+% Define the LinearODE system as sys:
 sys = LinearODE();
+% Open this system in the GUI:
 bdGUI(sys);
 ```
 
-Have a play of the types of dynamics that are present in the phase portrait and how they depend on the parameters.
-Use the `Phase Portrait: Calibrate Axes` to see the full trajectory.
-Play with the `Vector Field` option.
-Verify that you can set the parameters, alter their ranges for the scale bar, change the initial conditions, and vary the time range over which the system is solved numerically.
+#### Exploring the Phase Portrait
+__HOT TIP__: The 'Phase Portrait: Calibrate Axes' option sets the axis limits to reveal the full range of the current trajectory.
+1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider (also in the 'Time Domain' panel). Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots). Verify that you can now set specific initial conditions within this range by pressing the 'RAND' button.
+2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow.
+3. Walk through time by dragging the 'Time Domain' slider.
+4. What happens to the dynamics when you alter the model parameters using the scale bar? Verify that you can change the parameter ranges shown on the scale bar by checking the 'Parameters' tick box.
+5. Find parameter values for which the system: (i) decays to the origin, and (ii) spirals out towards infinity.
+Verify that you understand these two cases in the 'Time Portrait' and the 'Phase Portrait' views.
+
+### Solving a specific linear system
 
 Recall the linear system from our tutorial:
 
 ```math
-    dx/dt = x + y
-    dy/dt = 4x - 2y
+dx/dt = x + y
+dy/dt = 4x - 2y
 ```
 
 We found that this system has a saddle point at the origin, with eigenvalues `lambda_1 = 2`, `v_1 = [1,1]` and `lambda_2 = -3`, `v_2 = [1,-4]`.
 
-Let's first verify these analytical results by solving the equation in Matlab:
-```
-A = [1,1;4,-2];
-display(eig(A))
-```
-Looking at the eigenvalues, what sort of dynamics should this system display?
+Construct the matrix of coefficients for this (x,y) linear system in the 2 x 2 matrix, `A`.
 
-We can even verify the eigenvectors:
-```matlab
-[v,d] = (eig(A));
-% Eigenvalues only tell us a direction so we can rescale for readability:
-display(v(:,1)/v(1,1))
-display(v(:,2)/v(1,2))
-```
-Identify the values of `a,b,c,d` for the definition of the linear ODE and use the BDtoolbox to verify the phase portrait presented the lecture:
+Verify the eigenvalues above using the `eig` function: `[v,lambda] = eig(A)`.
+
+Looking at the eigenvalues, `lambda`, what sort of dynamics should this system display?
+
+Normalize each eigenvector (columns of `v`) by its first value to verify the eigendirections identified above.
+
+Identify the values of `a,b,c,d` for the definition of the linear ODE and use the BDtoolbox to verify that the vector field is consistent with the qualitative portrait presented the lecture.
+Change the initial conditions to verify that you can get the predicted shapes of trajectories shown in the predicted phase portrait.
 
 ![](figs/LinearDynamicalSystem.png)
 
-Let's try with
-```matlab
-A = [1,-1;10,-2];
-lambda = eig(A);
-display(lambda)
-```
+#### :question::question::question: Thinking inside the box
+If you had the keep the system confined to stay near the origin for the longest possible time, what would your strategy be?
+Imagine a box defined by `-1<x<1` and `-1<y<1`.
+Where in this region would you start the system for it to stay as close as possible to the origin for as long as possible?
 
-Just looking at the two eigenvalues, `lambda`, what sort of dynamics should this system display?
+Use the `TimeToExitBox` function to evaluate when you first leave the box (note it adds a tiny amount of noise around where you tell it to start).
+What is the longest duration that you can keep the system in the box?
+Where did you start the system?
+
+![](figs/theBox.png)
+
+#### :question::question::question: A new linear system
+
+Let's try a system with `a = 1`, `b = -1`, `c = 10`, `d = -2`.
+
+What are the eigenvalues of this system?
 What sort of dynamics should it have?
-Verify your intuition by putting these parameters into `bdtoolbox`.
+Verify your intuition by inputting these parameters into `bdtoolbox` and playing with different initial conditions across an appropriate range.
 
-## Modelling relationships
+## Part 2: Two-person relationships
 
-Imagine two potential lovers, who have feelings for the other that can be captured in the two variables `R` (how Romeo feels for Juliet) and `J` (how Juliet feels for Romeo).
-The dynamics of `R` depends on two parameters, `r1` and `r2`, and the dynamics of `J` depends on two parameters `j1` and `j2`:
-```
-dR/dt = r1*R + r2*J
-dJ/dt = j1*R + j2*J
+Imagine two potential lovers, Carrie and Harrison.
+Their feelings for each other can be captured in the two variables `H` (how Harrison feels for Carrie) and `C` (how Carrie feels for Harrison).
+The dynamics of `C` depends on two parameters, `c1` and `c2`, and the dynamics of `H` depends on two parameters `h1` and `h2`:
+```math
+dH/dt = h1*H + h2*C
+dC/dt = c1*H + c2*C
 ```
 
 While understanding dynamical systems is a useful general skill for physicists, this application in particular is an important skill in life, as it allows one to provide precise mathematical evidence for the fate of either one's own or another's relationship.
 
-### The case of the equally cautious lovers
-Imagine the case where Romeo and Juliet respond equivalently to each other.
-Then we can reduce the equations above to
+### Equally cautious lovers
+Imagine the case where Harrison and Carrie have the same personality and thus respond to each other according to the same rules.
+Then we can reduce the equations above to:
 ```
-dR/dt = a*R + b*J
-dJ/dt = b*R + a*J
+dH/dt = a*H + b*C
+dC/dt = b*H + a*C
 ```
-Let's consider the cautious case, where `a < 0` (both avoid throwing themselves at each other) and `b > 0` (they both respond positively to advances from the other).
 
-If you analyze the eigenvalues, you find that the fixed point at (R,J) = (0,0), are a saddle point if `|a| < |b|`, and a stable node if `|a| > |b|`:
+What does the parameter `a` correspond to here?
+What about `b`?
+
+Let's consider the cautious case, where `a < 0` (both avoid throwing themselves at each other) and `b > 0` (both respond positively to advances from the other).
+
+If you analyze the eigenvalues, you find that the fixed point at (H,C) = (0,0), is a saddle point if `|a| < |b|`, and a stable node if `|a| > |b|`:
 `v_1 = [1,1]`, `lambda_1 = a+b` and `v_2 = [1,-1]`, `lambda_2 = a-b`.
 
-The phase portrait of this system is here:
+Sketch the phase portrait in the `|a| < |b|` case and the `|a| > |b|` case.
 
-![](figs/CautiousLovers.png)
+---
 
-Playing with parameters `a` and `b` in the Brain Dynamics Toolkit, including the two regimes identified above.
+Play with parameters `a` and `b` in the Brain Dynamics Toolkit, including the two regimes identified above:
 
 ```matlab
 sys = IdenticalLovers();
 bdGUI(sys);
 ```
 
+#### `|a| > |b|`
+This condition corresponds to both lovers displaying more cautiousness than enthusiasm.
+
+What happens to such a relationship in the long-term?
+
 Start with `|a|` only slightly larger than `|b|` (e.g., `a = -1.2`, `b = 1`), and then start increasing `|a|`.
-Can you explain the change in the dynamics in terms of the eigenvalues and eigenvectors of the system?
+Explain the change in the dynamics in terms of the eigenvalues and eigenvectors of the system?
+(Look in both the Time Portrait and the Phase Portrait).
 
-Note that the `|a| > |b|` condition corresponds to both lovers displaying more cautiousness than enthusiasm. What happens to such a relationship in the long-term?
-
-Note that the `|a| < |b|` case corresponds to both lovers being more daring and sensitive to each other. What are the two outcomes for such a relationship? What determines which of these two outcomes evenuates?
-
-### Optional Extras
-Assign names to each of the romantic styles in `dR/dt = aR + bJ`, for the combinations of positive and negative signs of `a` and `b`.
-You can experiment with different combinations of lovers in `LinearODE()` in this simple model.
-For example:
-* What happens when Romeo and Juliet react only to each other but not to themselves? `dR/dt = aJ`, `dJ/dt = bR`.
-* Do opposites attract? Copy `IdenticalLovers.m` as `OppositeLovers.m` and modify it such that `dR/dt = aR + bJ`, `dJ/dt = -bR - aJ`.
-* Romeo is heartless and lacks self-awareness: `dR/dt = 0`. How does Juliet respond?
+:question::question::question: Starting at `(H,C) = (-0.5,1)`, and setting `b = 1`, what is the critical value of `a` that determines whether love will die within five seconds?
 
 
-### Morris-Lecar model
+#### `|a| < |b|`
 
-A conductance-based model of the nerve action potential, involving just two time-varying variables (a simpler form of the four-variable Hodgkin-Huxley model).
-The Brain Dynamics Toolbox implementation contains three parameter configurations for three routes to spiking:
+The  `|a| < |b|` case corresponds to both lovers being more daring and sensitive to each other.
+What are the two outcomes for such a relationship?
+What determines which of these two outcomes evenuates?
 
-1. Hopf bifurcation (firing rate is approximately constant but amplitude varies with injection current),
-2. Saddle-node on a limit cycle (amplitude is constant but firing rate varies),
-3. Saddle-homoclinic regime (stable fixed point coexists with a stable limit cycle; and can be tristable with the emergence of a stable fixed point within the limit cycle).
-
-### Hodgkin-Huxley Model of Nerve Action Potential
-
-*References*:
-
-* Hodgkin and Huxley (1952). A quantitative description of membrane current and its application to conduction and excitation in a nerve. __J Physiol__ 117:165-181
-* Hansel, Mato, Meunier (1993). Phase Dynamics for Weakly Coupled Hodgkin-Huxley Neurons. __Europhys Lett__ 23(5).
-
-The Hodgkin-Huxley (1952) equations describe the action potential in the giant axon of the squid.
-The equations explain the rapid rise and fall of the action potential in terms of voltage-gated sodium and potassium channels in the cell membrane.
-The model is a classic in computational neuroscience.
-Hodgkin and Huxley were awarded the 1963 Nobel Prize in Physiology for this work.
-
-The membrane potential for this model rests at `V = -65 mV` when the injection current `I = 0`.
-The resting equilibrium undergoes a subcritical Hopf bifurcation to a repetitive spiking regime when the injection current exceeds `I = 9.78` uAmp/cm2.
-Stable resting-state and repetitive spiking solutions coexist for injection currents between `I = 6.27` and `I = 9.78`.
-Try mapping out those solutions in the bifurcation panel.
+## Part 3: Sleep-Wake Dynamics
