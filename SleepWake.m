@@ -62,11 +62,11 @@ function sys = SleepWake()
                    struct('name','v_sw','value',-2.1,'lim',[-2.5,-1.5]);
                    struct('name','v_ws','value',-1.8,'lim',[-2.5,-1.5]);
                    struct('name','Dw','value',1.3,'lim',[1,1.5]);
-                   struct('name','Ds','value',0,'lim',[-0.5,2.5])];
+                   struct('name','Ds','value',0,'lim',[0,3.5])];
 
     % ODE variable definitions
-    sys.vardef = [struct('name','Vs','value',0,'lim',[-20,2]);
-                   struct('name','Vw','value',-15,'lim',[-20,2])];
+    sys.vardef = [struct('name','Vs','value',0,'lim',[-20,4]);
+                  struct('name','Vw','value',-15,'lim',[-20,4])];
 
     % Latex (Equations) panel
     sys.panels.bdLatexPanel.title = 'Equations';
@@ -90,7 +90,7 @@ function sys = SleepWake()
     sys.panels.bdSolverPanel = [];
 
     % Default time span (optional)
-    sys.tspan = [0,20];
+    sys.tspan = [0,10];
 
     % Specify the relevant ODE solvers (optional)
     sys.odesolver = {@ode45,@ode23,@odeEul};
@@ -101,7 +101,7 @@ end
 
 % The ODE function.
 % The variables Y and dYdt are both (2x1) vectors.
-function dYdt = odefun(t,Y,ts,tw,v_sw,v_ws,Ds,Dw)
+function dYdt = odefun(t,Y,ts,tw,v_sw,v_ws,Dw,Ds)
     % Unpack variables from Y:
     Vs = Y(1); % sleep voltage
     Vw = Y(2); % wake voltage
@@ -115,7 +115,7 @@ function dYdt = odefun(t,Y,ts,tw,v_sw,v_ws,Ds,Dw)
     dVw_dt = 1/tw*(-Vw + v_ws*Qs + Dw);
 
     % Output dYdt
-    dYdt = [dVs_dt;dVw_dt];
+    dYdt = [dVs_dt; dVw_dt];
 end
 
 % Computing mean firing rate from mean cell-body potential
