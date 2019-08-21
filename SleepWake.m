@@ -1,17 +1,18 @@
-function sys = IdenticalLovers()
-    % IdenticalLovers  Symmetric Linear ODE in two variables:
-    %        H'(t) = a*H(t) + b*C(t)
-    %        C'(t) = b*H(t) + a*C(t)
+function sys = SleepWake()
+    % SleepWake  Linear Ordinary Differential Equation in two variables
+    %   Implements the system of linear ordinary differential equations
+    %        ts*Vs'(t) = -Vs(t) + v_sw*Qw(t) + Ds
+    %        tw*Vw'(t) = -Vw(t) + v_ws*Qs(t) + Dw
     %   for use with the Brain Dynamics Toolbox.
     %
     % Example 1: Using the Brain Dynamics graphical toolbox
-    %   sys = IdenticalLovers();      % construct the system struct
-    %   gui = bdGUI(sys);             % open the Brain Dynamics GUI
+    %   sys = SleepWake();      % construct the system struct
+    %   gui = bdGUI(sys);       % open the Brain Dynamics GUI
     %
     % Example 2: Using the Brain Dynamics command-line solver
     %   sys = LinearODE();                              % system struct
-    %   sys.pardef = bdSetValue(sys.pardef,'a',-2);      % parameter a=-2
-    %   sys.pardef = bdSetValue(sys.pardef,'b',1);     % parameter b=1
+    %   sys.pardef = bdSetValue(sys.pardef,'a',-2);     % parameter a=-2
+    %   sys.pardef = bdSetValue(sys.pardef,'b',1);      % parameter b=1
     %   sys.vardef = bdSetValue(sys.vardef,'x',rand);   % variable x=rand
     %   sys.vardef = bdSetValue(sys.vardef,'y',rand);   % variable y=rand
     %   tspan = [0 10];                                 % soln time span
@@ -56,22 +57,27 @@ function sys = IdenticalLovers()
     sys.odefun = @odefun;
 
     % ODE parameter definitions
-    sys.pardef = [ struct('name','a', 'value',-2);
-                   struct('name','b', 'value',1)];
+    sys.pardef = [struct('name','ts','value',0.1,'lim',[0.1,1]);
+                   struct('name','tw','value',0.1,'lim',[0.1,1]);
+                   struct('name','v_sw','value',-2.1,'lim',[-2.5,-1.5]);
+                   struct('name','v_ws','value',-1.8,'lim',[-2.5,-1.5]);
+                   struct('name','Dw','value',1.3,'lim',[1,1.5]);
+                   struct('name','Ds','value',0,'lim',[-0.5,2.5])];
 
     % ODE variable definitions
-    sys.vardef = [ struct('name','H', 'value',2*rand-1);
-                   struct('name','C', 'value',2*rand-1) ];
+    sys.vardef = [struct('name','Vs','value',0,'lim',[-20,2]);
+                   struct('name','Vw','value',-15,'lim',[-20,2])];
 
     % Latex (Equations) panel
     sys.panels.bdLatexPanel.title = 'Equations';
     sys.panels.bdLatexPanel.latex = {
-        '\textbf{IdenticalLovers}';
+        '\textbf{The Phillips-Robinson Sleep-Wake Model}';
         '';
-        'System of linear ordinary differential equations';
-        '\qquad $\dot H(t) = a\,H(t) + b\,H(t)$';
-        '\qquad $\dot H(t) = b\,H(t) + a\,H(t)$';
-        'where $a,b$ are constants.';
+        'For mean cell-body potentials on sleep- and wake-active populations of neurons';
+        '\qquad $t_s \dot V_s(t) = -V_s(t) + \nu_{sw}Q_w(t) + D_s$';
+        '\qquad $t_w \dot V_w(t) = -V_w(t) + \nu_{ws}Q_s(t) + D_w$';
+        'where $t_s, t_w, \nu_{sw}, \nu_{ws}, D_w$ are constants';
+        '$D_w$ is the oscillatory drive to the sleep-active population.';
         };
 
     % Time Portrait panel
@@ -84,19 +90,38 @@ function sys = IdenticalLovers()
     sys.panels.bdSolverPanel = [];
 
     % Default time span (optional)
-    sys.tspan = [0 5];
+    sys.tspan = [0,20];
 
     % Specify the relevant ODE solvers (optional)
     sys.odesolver = {@ode45,@ode23,@odeEul};
 
     % ODE solver options (optional)
     sys.odeoption.RelTol = 1e-6;        % Relative Tolerance
-    sys.odeoption.Jacobian = @jacfun;   % Handle to Jacobian function
 end
 
 % The ODE function.
 % The variables Y and dYdt are both (2x1) vectors.
-% The parameters a,b are scalars.
-function dYdt = odefun(t,Y,a,b)
-    dYdt = [a b; b a] * Y;              % matrix multiplication
+function dYdt = odefun(t,Y,ts,tw,v_sw,v_ws,Ds,Dw)
+    % Unpack variables from Y:
+    Vs = Y(1); % sleep voltage
+    Vw = Y(2); % wake voltage
+
+    % Convert voltages to mean firing rates:
+    Qs = sigmoid(Vs);
+    Qw = sigmoid(Vw);
+
+    % Convert voltages to mean firing rates:
+    dVs_dt = 1/ts*(-Vs + v_sw*Qw + Ds);
+    dVw_dt = 1/tw*(-Vw + v_ws*Qs + Dw);
+
+    % Output dYdt
+    dYdt = [dVs_dt;dVw_dt];
+end
+
+% Computing mean firing rate from mean cell-body potential
+function Q = sigmoid(V)
+    Qmax = 100; % /s
+    theta = 10; % mV
+    sigma = 3; % mV
+    Q = Qmax./(1+exp(-(V-theta)/sigma));
 end

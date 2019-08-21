@@ -146,6 +146,19 @@ Explain the change in the dynamics in terms of the eigenvalues and eigenvectors 
 
 The  `|a| < |b|` case corresponds to both lovers being more daring and sensitive to each other.
 What are the two outcomes for such a relationship?
-What determines which of these two outcomes evenuates?
+What determines which of these two outcomes eventuates?
 
 ## Part 3: Sleep-Wake Dynamics
+
+We finally get to a simple mathematical model of the sleep-wake system, see [here](https://dx.doi.org/10.1098/rsta.2011.0120) for a paper summarizing the system.
+
+Let's load up the system:
+```matlab
+sys = SleepWake();
+bdGUI(sys)
+```
+
+### Understanding the model
+Recall that the model defines the mutual inhibition dynamics between two populations: sleep-active, `Vs`, and wake-active, `Vw`.
+These variables, `V`, tell us the mean cell-body potential across all neurons in each population.
+They can be converted to firing rates using the 
