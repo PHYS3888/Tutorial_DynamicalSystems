@@ -139,7 +139,7 @@ What can you say about the first eigenvalue, `lambda_1`?
 Under what conditions is the fixed point, (H,C) = (0,0), a saddle point?
 When is it a stable node?
 
-Sketch the phase portrait in both the `|a| < |b|` case and the `|a| > |b|` case.
+Sketch the phase portrait (on paper) for both the `|a| < |b|` case and the `|a| > |b|` case.
 
 ---
 
@@ -207,7 +207,7 @@ sigma = 3; % mV
 ```
 
 #### :question::question::question: Firing rate function
-Using this sigmoidal function, match the mean cell-body potentials (mV) to their corresponding firing rates (Hz).
+Using this sigmoidal function, match the mean cell-body potentials relative to resting (mV) to their corresponding firing rates (Hz).
 Note where appreciable firing rates (~>1 Hz) emerge.
 
 ### Dynamics in `Vs`-`Vw` space

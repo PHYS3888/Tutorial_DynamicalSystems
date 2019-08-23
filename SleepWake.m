@@ -59,8 +59,8 @@ function sys = SleepWake()
     % ODE parameter definitions
     sys.pardef = [struct('name','ts','value',0.1,'lim',[0.1,1]);
                    struct('name','tw','value',0.1,'lim',[0.1,1]);
-                   struct('name','v_sw','value',-2.1,'lim',[-2.5,-1.5]);
-                   struct('name','v_ws','value',-1.8,'lim',[-2.5,-1.5]);
+                   struct('name','v_sw','value',-2.1,'lim',[-2.5,-1.0]);
+                   struct('name','v_ws','value',-1.8,'lim',[-2.5,-1.0]);
                    struct('name','Dw','value',1.3,'lim',[1,1.5]);
                    struct('name','Ds','value',0,'lim',[0,3.5])];
 
