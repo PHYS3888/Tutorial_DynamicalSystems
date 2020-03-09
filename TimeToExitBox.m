@@ -15,7 +15,7 @@ if x0==0 && y0==0
     warning('Hey! Don''t be cheating!')
 end
 
-tinyNoise = 1e-6;
+tinyNoise = 1e-12;
 x0 = x0 - rand*tinyNoise*sign(x0);
 y0 = y0 - rand*tinyNoise*sign(y0);
 
