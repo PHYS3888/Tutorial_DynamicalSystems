@@ -1,14 +1,15 @@
-# Tutorial: Dynamical Systems
+# Dynamical Systems
+
 In this tutorial we will test our knowledge of dynamical systems using the [Brain Dynamics Toolbox](https://bdtoolbox.org/).
 Some of the material from this tutorial is based on information developed by Stuart Heitmann (the mind behind the Brain Dynamics Toolbox).
 
-### Setting up
-You will first need to download the [Brain Dynamics Toolbox](https://bdtoolbox.org/).
+## Setting Up
+To complete this tutorial, you will need to download the [Brain Dynamics Toolbox](https://bdtoolbox.org/).
 Go to [the website](https://bdtoolbox.org/), then scroll down and press the 'Subscribe and Download' button.
 You will then receive an email that will provide you with a link to download the software.
-To access the functionality of the Brain Dynamics Toolbox, you will need to tell Matlab where to look.
+To access the functionality of the _Brain Dynamics Toolbox_, you will need to tell Matlab where to look.
 
-Navigate to the directory in which the Brain Dynamics Toolbox is installed and run:
+Navigate to the directory in which the _Brain Dynamics Toolbox_ is installed and run:
 ```matlab
 % Tell Matlab to look in the current directory:
 addpath(pwd)
@@ -16,8 +17,8 @@ addpath(pwd)
 addpath(fullfile(pwd,'models'))
 ```
 
-This tutorial assumes that you will be running all code from within this tutorial directory.
-Let's head head back to the tutorial directory; we're ready to get started.
+Let's head head back to the tutorial directory (this tutorial assumes that you will be running all code from within this tutorial directory).
+We're ready to get started.
 
 ## Part 1: The Linear ODE
 
@@ -30,13 +31,13 @@ dy/dt = cx + dy
 ```
 where `a`, `b`, `c`, `d` are constants.
 
-### Getting a feel for The Brain Dynamics Toolbox
+### Getting a feel for _The Brain Dynamics Toolbox_ (BDT)
 
-Let's get started exploring this simple system using the BDToolbox.
+Let's get started exploring this simple system using the _BDT_.
 Normally you would have to code the equations, direct Matlab to solve them, and then write your own plotting functions to understand the numerical solutions.
-The BDToolbox cuts out all of the implementation overhead so we can get straight into exploring and understanding the dynamics.
+The _BDT_ cuts out all of the implementation overhead so we can get straight into exploring and understanding the dynamics :smile:
 
-For the Linear ODE system, we can get an interactive session started as follows:
+For the Linear ODE system, we can start an interactive session as follows:
 ```matlab
 % Define the LinearODE system as sys:
 sys = LinearODE();
@@ -44,10 +45,11 @@ sys = LinearODE();
 bdGUI(sys);
 ```
 
-#### Getting familiar with the interactive plots
+#### Getting familiar with the interactive plots in _BDT_
+
 __HOT TIP__: The 'Phase Portrait: Calibrate Axes' option sets the axis limits to reveal the full range of the current trajectory.
 1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider (also in the 'Time Domain' panel). Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots). Verify that you can now set specific initial conditions within this range by pressing the 'RAND' button.
-2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow. (_Note_: the flow is indicated using 'tell-tales' that indicate the trail of a particle placed in the vector field).
+2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow. (_Note_: the flow is indicated using 'tell tales' that indicate the trail of a particle placed in the vector field).
 3. Walk through time by dragging the 'Time Domain' slider.
 4. What happens to the dynamics when you alter the model parameters using the scale bar? Verify that you can change the parameter ranges shown on the scale bar by checking the 'Parameters' tick box.
 5. Find parameter values for which the system: (i) decays to the origin, and (ii) spirals out towards infinity.
@@ -70,18 +72,16 @@ Numerically verify the eigenvalues that we computed analytically using the `eig`
 
 Normalize each eigenvector (columns of `v`) by its first value to verify the eigendirections identified above.
 
-Identify the values of `a,b,c,d` for the definition of the linear ODE and use the BDtoolbox to verify that the vector field is consistent with the qualitative portrait presented the lecture (reproduced below).
+Identify the values of `a`, `b`, `c`, and `d` for the definition of the linear ODE and use _BDT_ to verify that the vector field is consistent with the qualitative portrait presented the lecture (reproduced below).
 Change the initial conditions to verify that you can get the predicted shapes of trajectories shown in the predicted phase portrait.
 
 ![](figs/LinearDynamicalSystem.png)
 
 #### :question::question::question: Thinking inside the box :sweat:
-Imagine that these equations describe the water currents, and that apart from a safe region near the origin, evil octopuses :octopus::octopus::octopus: are rampant.
-A rescue chopper is on its way, in 5 hours.
-If you can be dropped anywhere within the safe zone, where would you pick to be dropped to give yourself the longest time in safe waters (and thereby maximize your chances of being saved).
+Imagine that these equations describe the water currents, and that apart from a safe region near the origin, evil octopuses are rampant :octopus::octopus::octopus:.
+A rescue chopper is on its way and will arrive in 15 minutes.
 
-Imagine a box defined by `-1 < x < 1` and `-1 < y < 1`.
-Where in this region would you start the system for it to stay as close as possible to the origin for as long as possible?
+If you can be dropped somewhere on the boundary of the safe zone (defined by `-1 < x < 1` and `-1 < y < 1`), where would you choose to be dropped to give yourself the longest time in safe waters (and thus maximize your chances of being saved).
 
 Use the `TimeToExitBox` function to evaluate when you first leave the box (note it adds a tiny amount of noise around where you tell it to start).
 What is the longest duration that you can keep the system in the box?
@@ -96,7 +96,7 @@ Let's try a system with `a = 1`, `b = -1`, `c = 10`, `d = -2`.
 What are the eigenvalues of this system?
 What sort of dynamics should it have?
 
-Verify your prediction by inputting these parameters into the BDtoolbox and playing with initial conditions across an appropriate range.
+Verify your prediction by inputting these parameters into `BDT` and playing with initial conditions across an appropriate range.
 
 ## Part 2: Modelling two-person romance :couple: :two_men_holding_hands: :two_women_holding_hands:
 
@@ -129,6 +129,7 @@ Let's consider the cautious case, where `a < 0` (both avoid throwing themselves 
 
 Think about the eigenvalues/eigenvectors of this system:
 `v_1 = [1,1]`, `lambda_1 = a+b` and `v_2 = [1,-1]`, `lambda_2 = a-b`.
+(Do you remember from lectures how to compute these results?)
 
 Let's think about the system's stability, determined by the sign of the two eigenvalues.
 
@@ -144,7 +145,7 @@ Sketch the phase portrait (on paper) for both the `|a| < |b|` case and the `|a| 
 ---
 
 Now we have some understanding, let's analyze the system numerically.
-The system's equations are implemented in the `IdenticalLovers.m` file for the Brain Dynamics Toolbox.
+The system's equations are implemented in the `IdenticalLovers` file for the _BDT_.
 Let's load it up:
 
 ```matlab
@@ -155,13 +156,13 @@ bdGUI(sys);
 Have a quick play with the parameters `a` and `b`.
 
 #### More cautious than enthusiastic: `|a| > |b|`
-This condition corresponds to both lovers displaying more cautiousness than enthusiasm.
+Remember that we analyzing the system with a<0 and b>0, so `|a| > |b|` corresponds to both lovers displaying more cautiousness (|a|) than enthusiasm (|b|).
 
 What happens to such a relationship in the long term?
 
-Start with `|a|` only slightly larger than `|b|` (e.g., `a = -1.2`, `b = 1`), and then start increasing `|a|`.
-Explain the change in the dynamics in terms of the eigenvalues and eigenvectors of the system?
-(Look in both the Time Portrait and the Phase Portrait).
+Start with `|a|` only slightly larger than `|b|` (e.g., `a = -1.2`, `b = 1`), and then start decreasing `|a|`.
+Can you explain the change in the dynamics in terms of the eigenvalues and eigenvectors of the system?
+Look at both the Time Portrait and the Phase Portrait (and don't forget to use the 'Calibrate Axis' option if you can't see the gray circle representing the final state of the system).
 
 :question::question::question:
 Starting at `(H,C) = (-0.5,1)`, and setting `b = 1`, what is the critical value of `a` that determines whether love will die within five days?

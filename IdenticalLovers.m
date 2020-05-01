@@ -56,9 +56,8 @@ function sys = IdenticalLovers()
     sys.odefun = @odefun;
 
     % ODE parameter definitions
-    sys.pardef = [ struct('name','a', 'value',-2);
-                   struct('name','b', 'value',1)];
-
+    sys.pardef = [struct('name','a', 'value',-2, 'lim',[-4 0]);
+                  struct('name','b', 'value',1, 'lim',[0 4])];
     % ODE variable definitions
     sys.vardef = [ struct('name','H', 'value',2*rand-1);
                    struct('name','C', 'value',2*rand-1) ];
@@ -69,8 +68,8 @@ function sys = IdenticalLovers()
         '\textbf{IdenticalLovers}';
         '';
         'System of linear ordinary differential equations';
-        '\qquad $\dot H(t) = a\,H(t) + b\,H(t)$';
-        '\qquad $\dot H(t) = b\,H(t) + a\,H(t)$';
+        '\qquad $\dot H(t) = a\,H(t) + b\,C(t)$';
+        '\qquad $\dot C(t) = b\,H(t) + a\,C(t)$';
         'where $a,b$ are constants.';
         };
 
