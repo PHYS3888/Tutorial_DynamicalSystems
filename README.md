@@ -1,4 +1,4 @@
-# Dynamical Systems
+# Dynamics
 
 In this tutorial we will test our knowledge of dynamical systems using the [Brain Dynamics Toolbox](https://bdtoolbox.org/).
 Some of the material from this tutorial is based on information developed by Stuart Heitmann (the mind behind the Brain Dynamics Toolbox).
@@ -87,10 +87,14 @@ bdGUI(sys);
 #### Getting familiar with the interactive plots in _BDT_
 
 __HOT TIP__: The 'Phase Portrait: Calibrate Axes' option sets the axis limits to reveal the full range of the current trajectory.
-1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider (also in the 'Time Domain' panel). Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots). Verify that you can now set specific initial conditions within this range by pressing the 'RAND' button.
-2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow. (_Note_: the flow is indicated using 'tell tales' that indicate the trail of a particle placed in the vector field).
+1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider (also in the 'Time Domain' panel).
+   Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots).
+   Verify that you can now set specific initial conditions within this range by pressing the 'RAND' button.
+2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow.
+   _Note_: the flow is __NOT__ indicated by vectors (arrows), but by 'tell tales' that indicate the trail of a particle placed in the vector field.
 3. Walk through time by dragging the 'Time Domain' slider.
-4. What happens to the dynamics when you alter the model parameters using the scale bar? Verify that you can change the parameter ranges shown on the scale bar by checking the 'Parameters' tick box.
+4. What happens to the dynamics when you alter the model parameters using the scale bar?
+   Verify that you can change the parameter ranges shown on the scale bar by checking the 'Parameters' tick box.
 5. Find parameter values for which the system: (i) decays to the origin, and (ii) spirals out towards infinity.
 Verify that you understand these two cases in the 'Time Portrait' and the 'Phase Portrait' views.
 
@@ -216,7 +220,7 @@ Give your answer to one decimal place.
 #### Daring and responsive: `|a| < |b|`
 
 Recall that we should see a bifurcation at `|a| = |b|`.
-Verify this by again starting at `b=-1` and `a=-2`, but now increasing `a` and watching the dynamics.
+Verify this by again starting at `b=1` and `a=-2`, but now increasing `a` and watching the dynamics.
 
 Can you verify that the `v_1` eigendirection becomes unstable after you cross the bifurcation?
 
