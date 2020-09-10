@@ -1,4 +1,4 @@
-# Dynamics
+# Dynamics Tutorial
 
 In this tutorial we will test our knowledge of dynamical systems using the [Brain Dynamics Toolbox](https://bdtoolbox.org/).
 Some of the material from this tutorial is based on information developed by Stuart Heitmann (the mind behind the Brain Dynamics Toolbox).
@@ -91,7 +91,7 @@ __HOT TIP__: The 'Phase Portrait: Calibrate Axes' option sets the axis limits to
    Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots).
    Verify that you can now set specific initial conditions within this range by pressing the 'RAND' button.
 2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow.
-   _Note_: the flow is __NOT__ indicated by vectors (arrows), but by 'tell tales' that indicate the trail of a particle placed in the vector field.
+   _Note_: the flow is __not indicated by vectors (arrows)__, but by 'tell tales' that indicate the trail of a particle placed in the vector field.
 3. Walk through time by dragging the 'Time Domain' slider.
 4. What happens to the dynamics when you alter the model parameters using the scale bar?
    Verify that you can change the parameter ranges shown on the scale bar by checking the 'Parameters' tick box.
@@ -126,7 +126,7 @@ A rescue chopper is on its way and will arrive in 15 minutes.
 
 If you can be dropped somewhere on the boundary of the safe zone (defined by `-1 < x < 1` and `-1 < y < 1`), where would you choose to be dropped to give yourself the longest time in safe waters (and thus maximize your chances of being saved).
 
-Use the `TimeToExitBox` function to evaluate when you first leave the box (note it adds a tiny amount of noise around where you tell it to start).
+Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box after starting at `(x0,y0)` (note it adds a tiny amount of noise around where you tell it to start).
 What is the longest duration that you can keep the system in the box?
 Where did you start the system?
 
@@ -267,7 +267,9 @@ sigma = 3; % mV
 
 #### :question::question::question: Firing rate function
 Using this sigmoidal function, match the mean cell-body potentials relative to resting (mV) to their corresponding firing rates (Hz).
-Note where appreciable firing rates (~>1 Hz) emerge.
+Note where appreciable firing rates (>~1 Hz) emerge.
+
+A sleep state has strong firing in the sleep population (Q > ~1 Hz) but low wake population firing (Q < ~0.1Hz), and vice-versa for a wake state.
 
 ### Dynamics in `Vs`-`Vw` space
 For default parameters and at sleep drive `Ds = 0`, look at the Phase Portrait of this sleep-wake system.
