@@ -43,9 +43,9 @@ Be aware of this `@()` notation for defining inline functions--it can be a handy
 
 ### Setting Up
 
-To complete this tutorial, you will need to download the [Brain Dynamics Toolbox](https://bdtoolbox.org/).
-Go to [the website](https://bdtoolbox.org/), then scroll down and press the 'Subscribe and Download' button.
-You will then receive an email that will provide you with a link to download the software.
+To complete this tutorial, you will need to download the [_Brain Dynamics Toolbox_](https://sourceforge.net/projects/bdtoolbox/) to your computer.
+<!-- Go to [the website](https://bdtoolbox.org/), then scroll down and press the 'Subscribe and Download' button.
+You will then receive an email that will provide you with a link to download the software. -->
 To access the functionality of the _Brain Dynamics Toolbox_, you will need to tell Matlab where to look.
 
 Navigate to the directory in which the _Brain Dynamics Toolbox_ is installed and run:
@@ -57,7 +57,7 @@ addpath(fullfile(pwd,'models'))
 ```
 
 Let's head head back to the tutorial directory (this tutorial assumes that you will be running all code from within this tutorial directory).
-We're ready to get started.
+We're now ready to get started.
 
 ## Part 1: The Linear ODE
 
