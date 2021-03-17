@@ -39,16 +39,14 @@ In this case it adds text to my input string:
 contradictMe('I think this will be a boring tutorial.')
 ```
 
-Be aware of this `@()` notation for defining inline functions--it can be a handy thing to know about!
+Be aware of this `@()` notation for defining inline functions—it can be a handy thing to know about!
 
 ### Setting Up
 
-To complete this tutorial, you will need to download the [_Brain Dynamics Toolbox_](https://sourceforge.net/projects/bdtoolbox/) to your computer.
-<!-- Go to [the website](https://bdtoolbox.org/), then scroll down and press the 'Subscribe and Download' button.
-You will then receive an email that will provide you with a link to download the software. -->
-To access the functionality of the _Brain Dynamics Toolbox_, you will need to tell Matlab where to look.
+To complete this tutorial, you will first need to __download__ the [_Brain Dynamics Toolbox_](https://sourceforge.net/projects/bdtoolbox/).
 
-Navigate to the directory in which the _Brain Dynamics Toolbox_ is installed and run:
+To access the functionality of the _Brain Dynamics Toolbox_, you will need to tell Matlab where to look.
+Navigate to the directory in which the _Brain Dynamics Toolbox_ is installed and run the following code:
 ```matlab
 % Tell Matlab to look in the current directory:
 addpath(pwd)
@@ -56,19 +54,19 @@ addpath(pwd)
 addpath(fullfile(pwd,'models'))
 ```
 
-Let's head head back to the tutorial directory (this tutorial assumes that you will be running all code from within this tutorial directory).
-We're now ready to get started.
+Then move your Matlab directory back to the directory containing the material for this tutorial (all tutorials assume that you will run all code from within the tutorial directory).
 
-## Part 1: The Linear ODE
+Now we're ready to get started.
 
-The two-dimensional linear ordinary differential equation is a good place to start for understanding basic concepts of linear dynamical systems.
+## Part 1: The Linear Ordinary Differential Equation (ODE)
+
+The two-dimensional linear ODE is a good place to start for understanding basic concepts of linear dynamical systems.
 
 Recall the general form from lectures:
-```math
-dx/dt = ax + by
-dy/dt = cx + dy
-```
-where `a`, `b`, `c`, `d` are constants.
+
+![](figs/2D_ODE.png)
+
+where _a_, _b_, _c_, _d_ are constants.
 
 ### Getting a feel for _The Brain Dynamics Toolbox_ (BDT)
 
@@ -86,58 +84,59 @@ bdGUI(sys);
 
 #### Getting familiar with the interactive plots in _BDT_
 
-__HOT TIP__: The 'Phase Portrait: Calibrate Axes' option sets the axis limits to reveal the full range of the current trajectory.
+__HOT TIP__: The 'Phase Portrait: Calibrate' option calibrates the axis limits to reveal the full range of the current trajectory.
 1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider (also in the 'Time Domain' panel).
    Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots).
    Verify that you can now set specific initial conditions within this range by pressing the 'RAND' button.
 2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow.
-   _Note_: the flow is __not indicated by vectors (arrows)__, but by 'tell tales' that indicate the trail of a particle placed in the vector field.
 3. Walk through time by dragging the 'Time Domain' slider.
 4. What happens to the dynamics when you alter the model parameters using the scale bar?
    Verify that you can change the parameter ranges shown on the scale bar by checking the 'Parameters' tick box.
-5. Find parameter values for which the system: (i) decays to the origin, and (ii) spirals out towards infinity.
+5. Find parameter values for which the system:
+   - decays to the origin, and
+   - spirals out towards infinity.
 Verify that you understand these two cases in the 'Time Portrait' and the 'Phase Portrait' views.
 
 ### Solving a linear system
 
-Recall the linear system from lectures:
+Recall the following linear system from lectures:
 
-```math
-dx/dt = x + y
-dy/dt = 4x - 2y
-```
+![](figs/2D_system.png)
 
 In lectures, we found that this system has a saddle point at the origin, with eigenvalues `lambda_1 = 2`, `v_1 = [1,1]` and `lambda_2 = -3`, `v_2 = [1,-4]`.
 
-Construct the matrix of coefficients for this `[x;y]` linear system in the 2 x 2 matrix, `A`.
+1. Construct the matrix of coefficients for this `[x;y]` linear system in the 2 x 2 matrix, `A`.
 
-Numerically verify the eigenvalues that we computed analytically using the `eig` function: `[v,lambda] = eig(A)`.
+2. Numerically verify the eigenvalues that we computed analytically using the `eig` function: `[v,lambda] = eig(A)`.
 
-Normalize each eigenvector (columns of `v`) by its first value to verify the eigendirections identified above.
+3. Normalize each eigenvector (columns of `v`) by its first value to verify the eigendirections identified in lectures.
 
-Identify the values of `a`, `b`, `c`, and `d` for the definition of the linear ODE and use _BDT_ to verify that the vector field is consistent with the qualitative portrait presented the lecture (reproduced below).
+Identify the values of _a_, _b_, _c_, and _d_ for the definition of the linear ODE and use _BDT_ to verify that the vector field is consistent with the qualitative portrait presented the lecture and reproduced below.
+(NB: Due to the unstable eigendirection, `v_1`, the system will flow out to infinity, so it helps to set a very tight time range by clicking the 'Time Domain' setting, e.g., up to 2 time units).
+
 Change the initial conditions to verify that you can get the predicted shapes of trajectories shown in the predicted phase portrait.
 
 ![](figs/LinearDynamicalSystem.png)
 
-#### :question::question::question: Thinking inside the box :sweat:
+#### Thinking inside the box :sweat:
 Imagine that these equations describe the water currents, and that apart from a safe region near the origin, evil octopuses are rampant :octopus::octopus::octopus:.
 A rescue chopper is on its way and will arrive in 15 minutes.
 
 If you can be dropped somewhere on the boundary of the safe zone (defined by `-1 < x < 1` and `-1 < y < 1`), where would you choose to be dropped to give yourself the longest time in safe waters (and thus maximize your chances of being saved).
 
-Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box after starting at `(x0,y0)` (note it adds a tiny amount of noise around where you tell it to start).
-What is the longest duration that you can keep the system in the box?
+Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box after starting at `(x0,y0)` (note that this function adds a tiny amount of measurement noise around where you tell it to start).
+
+:question::question::question: What is the longest duration that you can keep the system in the box?
 Where did you start the system?
 
 ![](figs/theBox.png)
 
 #### :question::question::question: Solve a linear system
 
-Let's try a system with `a = 1`, `b = -1`, `c = 10`, `d = -2`.
+Let's try a system with _a_ = 1, _b_ = -1, _c_ = 10, _d_ = -2.
 
-What are the eigenvalues of this system?
-What sort of dynamics should it have?
+1. What are the eigenvalues of this system?
+2. What sort of dynamics should it have?
 
 Verify your prediction by inputting these parameters into `BDT` and playing with initial conditions across an appropriate range.
 
@@ -147,24 +146,18 @@ Imagine two potential lovers, Carrie and Harrison.
 Their feelings for each other can be captured in the two variables `H` (how Harrison feels for Carrie) and `C` (how Carrie feels for Harrison).
 The dynamics of `C` depends on two parameters, `c1` and `c2`, and the dynamics of `H` depends on two parameters `h1` and `h2`:
 
-```matlab
-dH/dt = h1*H + h2*C
-dC/dt = c1*H + c2*C
-```
+![](figs/HC_system.png)
 
 While understanding dynamical systems is a useful general skill for physicists, this application allows one to obtain supplementary income as a mathematically rigorous relationship psychic at music festivals :revolving_hearts::crystal_ball:
 
 Imagine that Harrison and Carrie have the same personality and hence respond to each other according to the same rules.
 Then we can reduce the four parameters in the full system above to two parameters that reflect this symmetry:
 
-```matlab
-dH/dt = a*H + b*C
-dC/dt = b*H + a*C
-```
+![](figs/HC_symmetric.png)
 
-Let's think of time, `t`, as being measured in units of days.
+Let's think of time, _t_, as being measured in units of days.
 
-In terms of behavior in the relationship, what do the parameters `a` and `b` correspond to here?
+In terms of behaviour in the relationship, can you explain in words what do the parameters _a_ and _b_ correspond to?
 
 ### Equally cautious lovers :pensive::pensive:
 
@@ -176,14 +169,14 @@ Think about the eigenvalues/eigenvectors of this system:
 
 Let's think about the system's stability, determined by the sign of the two eigenvalues.
 
-What can you say about our second eigenvalue, `lambda_2`?
+- What can you say about the second eigenvalue, `lambda_2`?
 
-What can you say about the first eigenvalue, `lambda_1`?
+- What can you say about the first eigenvalue, `lambda_1`?
 
-Under what conditions is the fixed point, (H,C) = (0,0), a saddle point?
-When is it a stable node?
+- Under what conditions is the fixed point, `(H,C) = (0,0)`, a saddle point?
+  - When is it a stable node?
 
-Sketch the phase portrait (on paper) for both the `|a| < |b|` case and the `|a| > |b|` case.
+- Sketch the phase portrait (on paper) for both the `|a| < |b|` case and the `|a| > |b|` case.
 
 ---
 
@@ -207,14 +200,14 @@ Start with `|a|` only slightly larger than `|b|` (e.g., `a = -1.2`, `b = 1`): we
 Since `|lambda_2| > |lambda_1|`, we expect movement to be faster along the `v_2` direction, and then slower along the `v_1` direction toward the origin.
 Play with some different initial conditions and verify that the system displays this behavior.
 
-Look at both the Time Portrait and the Phase Portrait (and don't forget to use the 'Calibrate Axis' option if you can't see the grey circle representing the final state of the system).
+Look at both the Time Portrait and the Phase Portrait (and don't forget to use the 'Calibrate' option if you can't see the grey circle representing the final state of the system).
 
 What do you expect to happen as you increase `|a|` (make `a` more negative)?
 Can you verify this behavior?
 
 :question::question::question:
 Starting at `(H,C) = (-0.5,1)`, and setting `b = 1`, inspect the Time Portrait to determine the highest value of `a` (i.e., minimal `|a|`) for which love dies (`H < 0.1` and `C < 0.1`) within just three days?
-_Hint:_ you may wish to use the "Time Domain" slider (and the "Data Cursor").
+_Hint:_ you may wish to use the 'Time Domain' slider (and the 'Data Cursor').
 Give your answer to one decimal place.
 
 #### Daring and responsive: `|a| < |b|`
