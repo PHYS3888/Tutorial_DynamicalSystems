@@ -306,7 +306,7 @@ The `v_sw` parameter controls the inhibition strength from the wake population t
 Map out the stable sleep and wake states as a function of `Ds` to construct bifurcation diagrams as before, but now repeat this process for progressive reductions in wake-to-sleep inhibition, `v_sw` (you can use the 'Bifurcation -> Clear Axes' functionality to clean things up).
 As you repeat this process, determine the value of `v_sw` at which the bistable region disappears.
 
-#### :fire: Extras :fire:
+# :fire: I want more! :fire:
 
-* If you're interested, you can keep playing with more systems listed in the `models` directory of the BDToolbox.
-* Some papers describing the sleep-wake model developed here at Sydney University are [here](https://dx.doi.org/10.1098/rsta.2011.0120), [here](https://dx.doi.org/10.1103/physreve.78.051920), and [here](https://dx.doi.org/10.1016/j.jtbi.2010.02.028).
+- If you're interested, you can keep playing with more systems listed in the `models` directory of the BDToolbox.
+- Some papers describing the sleep-wake model developed here at The University of Sydney are [here](https://dx.doi.org/10.1098/rsta.2011.0120), [here](https://dx.doi.org/10.1103/physreve.78.051920), and [here](https://dx.doi.org/10.1016/j.jtbi.2010.02.028).
