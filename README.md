@@ -166,7 +166,7 @@ While understanding dynamical systems is a useful general skill for physicists, 
 Imagine that Harrison and Carrie have the same personality and hence respond to each other according to the same rules.
 Then we can reduce the four parameters in the full system above to two parameters that reflect this symmetry:
 
-![](figs/HC_symmetric.png)
+![Harrison Carrie](figs/HC_symmetric.png)
 
 Let's think of time, _t_, as being measured in units of days.
 
@@ -236,7 +236,6 @@ The  `|a| < |b|` case corresponds to both lovers being more daring and sensitive
 - What are the two outcomes for such a relationship?
 - What determines which of these two outcomes eventuates?
 
-
 ## Part 3: Sleep-Wake Dynamics
 
 We end by analysing a simple mathematical model of the sleep-wake system, developed here at The University of Sydney.
@@ -244,7 +243,7 @@ For this tutorial, we have extracted the core elements of the sleep-wake flip-fl
 The model defines the mutual inhibition dynamics between two populations: sleep-active, `Vs`, and wake-active, `Vw`.
 We consider how this system exhibits flip-flop dynamics in response to a time-varying sleep drive, `Ds` (biologically, this drive is contributed to by the circadian drive, shown orange in the figure below).
 
-![](figs/sleepWakeSystem.png)
+![Sleep-wake system](figs/sleepWakeSystem.png)
 
 ### Understanding the model
 
@@ -264,7 +263,7 @@ We start by understanding how population-average voltages can be converted to po
 Q = @(V) Qmax./(1+exp(-(V-theta)/sigma));
 ```
 
-Here we have used the `@(x)` syntax to define an inline Matlab function (_described in the prework_).
+Here we have used the `@(x)` syntax to define an inline Matlab function (_as described in the prework_).
 
 Plot this function, as `Q` as a function of `V`, for the default values of these three parameters:
 
@@ -303,7 +302,7 @@ Open the bifurcation panel ('New Panel -> Bifurcation') and use the upper left b
 
 Set an initial condition corresponding to a wake state, and then slide through values of `Ds` across the range `[0,3.5]`.
 At what critical value of `Ds` does the system 'fall to sleep'?
-(_you may wish to increase the total time in the Time Domain, e.g., to 20s, to better resolve the critical point_)
+(_You may wish to increase the total time in the Time Domain, e.g., to 20s, to better resolve the critical point_)
 
 #### :question::question::question: Waking up
 
@@ -330,5 +329,5 @@ As you repeat this process, determine the value of `v_sw` at which the bistable 
 
 ## :fire: I want more! :fire:
 
-- If you're interested, you can keep playing with more systems listed in the `models` directory of the BDToolbox.
+- If you're interested, there are some fascinating other systems in the `models` directory of the Brain Dynamics Toolbox.
 - Some papers describing the sleep-wake model developed here at The University of Sydney are [here](https://dx.doi.org/10.1098/rsta.2011.0120), [here](https://dx.doi.org/10.1103/physreve.78.051920), and [here](https://dx.doi.org/10.1016/j.jtbi.2010.02.028).
