@@ -1,16 +1,16 @@
-function sys = LinearODE()
-    % LinearODE  Linear Ordinary Differential Equation in two variables
-    %   Implements the system of linear ordinary differential equations
+function sys = Linear2DSystem()
+    % Linear2DSystem  2D Linear Ordinary Differential Equation in two variables
+    %   Implements the system of linear ODEs
     %        x'(t) = a*x(t) + b*y(t)
     %        y'(t) = c*x(t) + d*y(t)
     %   for use with the Brain Dynamics Toolbox.
     %
     % Example 1: Using the Brain Dynamics graphical toolbox
-    %   sys = LinearODE();      % construct the system struct
+    %   sys = Linear2DSystem();      % construct the system struct
     %   gui = bdGUI(sys);       % open the Brain Dynamics GUI
     %
     % Example 2: Using the Brain Dynamics command-line tools
-    %   sys = LinearODE();                 % system struct
+    %   sys = Linear2DSystem();                 % system struct
     %   sys = bdSetPar(sys,'a',1);         % parameter a=1
     %   sys = bdSetPar(sys,'b',-1);        % parameter b=-1
     %   sys = bdSetPar(sys,'c',10);        % parameter c=10

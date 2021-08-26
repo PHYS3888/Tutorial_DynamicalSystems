@@ -1,5 +1,5 @@
 function sys = SleepWake()
-    % SleepWake  Linear Ordinary Differential Equation in two variables
+    % SleepWake  The Phillips-Robinson Sleep ModelG
     %   Implements the system of linear ordinary differential equations
     %        ts*Vs'(t) = -Vs(t) + v_sw*Qw(t) + Ds
     %        tw*Vw'(t) = -Vw(t) + v_ws*Qs(t) + Dw
@@ -71,32 +71,33 @@ function sys = SleepWake()
     % Latex (Equations) panel
     sys.panels.bdLatexPanel.title = 'Equations';
     sys.panels.bdLatexPanel.latex = {
-        '\textbf{The Phillips-Robinson Sleep-Wake Model}';
-        '';
-        'For mean cell-body potentials on sleep- and wake-active populations of neurons';
-        '\qquad $t_s \dot V_s(t) = -V_s(t) + \nu_{sw}Q_w(t) + D_s$';
-        '\qquad $t_w \dot V_w(t) = -V_w(t) + \nu_{ws}Q_s(t) + D_w$';
-        'where $t_s, t_w, \nu_{sw}, \nu_{ws}, D_w$ are constants';
-        '$D_w$ is the oscillatory drive to the sleep-active population.';
+        '$\textbf{The Phillips-Robinson Sleep-Wake Model}$'
+        ''
+        'Mean cell-body potentials on sleep-active, $V_s$, and wake-active, $V_w$, populations of neurons'
+        '{ }{ }{ } $t_s \dot V_s(t) = -V_s(t) + \nu_{sw}Q_w(t) + D_s,$'
+        '{ }{ }{ } $t_w \dot V_w(t) = -V_w(t) + \nu_{ws}Q_s(t) + D_w,$'
+        'where $t_s, t_w, \nu_{sw}, \nu_{ws}, D_w$ are constants.'
+        '$D_s$ is the oscillatory drive to the sleep-active population.'
         };
 
     % Time Portrait panel
     sys.panels.bdTimePortrait = [];
 
     % Phase Portrait panel
-    sys.panels.bdPhasePortrait = [];
+    sys.panels.bdPhasePortrait.nullclines = 'off';
 
     % Solver panel
-    sys.panels.bdSolverPanel = [];
+    % sys.panels.bdSolverPanel = [];
 
     % Default time span (optional)
-    sys.tspan = [0,10];
+    sys.tspan = [0,5];
 
     % Specify the relevant ODE solvers (optional)
     sys.odesolver = {@ode45,@ode23,@odeEul};
 
     % ODE solver options (optional)
     sys.odeoption.RelTol = 1e-6;        % Relative Tolerance
+    sys.odeoption.InitialStep = 0.01;   % Required by odeEul solver
 end
 
 % The ODE function.
