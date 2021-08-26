@@ -83,11 +83,11 @@ Let's get started exploring this simple system using the _BDT_.
 Normally you would have to code the equations, direct Matlab to solve them, and then write your own plotting functions to understand the numerical solutions.
 The _BDT_ cuts out all of the implementation overhead so we can get straight into exploring and understanding the dynamics :smile:
 
-For the Linear ODE system, we can start an interactive session as follows:
+For the 2D Linear system, we can start an interactive session as follows:
 
 ```matlab
-% Define the LinearODE system as sys:
-sys = LinearODE();
+% Define the Linear2DSystem system:
+sys = Linear2DSystem();
 % Open this system in the GUI:
 bdGUI(sys);
 ```
@@ -133,7 +133,7 @@ _Suggestion:_ You can click the 'Initial Conditions' tickbox to set a range for 
 
 ![Phase portrait](figs/LinearDynamicalSystem.png)
 
-#### Thinking inside the box :sweat:
+#### Thinking inside the box :sweat: :octopus:
 
 Imagine that these equations describe the water currents, and that apart from a safe region near the origin, evil octopuses are rampant :octopus::octopus::octopus:.
 A rescue chopper is on its way and will arrive in 15 minutes.
@@ -165,7 +165,7 @@ The dynamics of `C` depends on two parameters, `c1` and `c2`, and the dynamics o
 
 ![Carrie and Harrison](figs/HC_system.png)
 
-While understanding dynamical systems is a useful general skill for physicists, this application allows one to obtain supplementary income as a mathematically rigorous relationship psychic at music festivals :revolving_hearts::crystal_ball:
+While understanding dynamical systems is a useful general skill for physicists, this application allows one to obtain supplementary income as a mathematically rigorous relationship psychic at music festivals :revolving_hearts: :crystal_ball:
 
 Imagine that Harrison and Carrie have the same personality and hence respond to each other according to the same rules.
 Then we can reduce the four parameters in the full system above to two parameters that reflect this symmetry:
@@ -178,7 +178,7 @@ In terms of behaviour in the relationship, can you explain in words what do the 
 
 ### Equally cautious lovers :pensive::pensive:
 
-Let's consider the cautious case, where `a < 0` (both avoid throwing themselves at each other) and `b > 0` (both respond positively to advances from the other).
+Let's consider the cautious case, where _a_ < 0 (both avoid throwing themselves at each other) and _b_ > 0 (both respond positively to advances from the other).
 
 Think about the eigenvalues/eigenvectors of this system:
 `v_1 = [1,1]`, `lambda_1 = a+b` and `v_2 = [1,-1]`, `lambda_2 = a-b`.
@@ -193,7 +193,7 @@ Let's think about the system's stability, determined by the sign of the two eige
 - Under what conditions is the fixed point, `(H,C) = (0,0)`, a saddle point?
   - When is it a stable node?
 
-- Sketch the phase portrait (on paper) for both the `|a| < |b|` case and the `|a| > |b|` case.
+- Sketch the phase portrait (on paper) for both the |_a_| < |_b_| case and the |_a_| > |_b_| case.
 
 ---
 
@@ -268,7 +268,7 @@ We start by understanding how population-average voltages can be converted to po
 Q = @(V) Qmax./(1+exp(-(V-theta)/sigma));
 ```
 
-Here we have used the `@(x)` syntax to define an inline Matlab function (_as described in the prework_).
+Here we have used the `@(x)` syntax to define an inline Matlab function (as described in the pre-work).
 
 Plot this function, as `Q` as a function of `V`, for the default values of these three parameters:
 

@@ -1,30 +1,33 @@
-function sys = IdenticalLovers()
-    % IdenticalLovers  Symmetric Linear ODE in two variables:
-    %        H'(t) = a*H(t) + b*C(t)
-    %        C'(t) = b*H(t) + a*C(t)
+function sys = LinearODE()
+    % LinearODE  Linear Ordinary Differential Equation in two variables
+    %   Implements the system of linear ordinary differential equations
+    %        x'(t) = a*x(t) + b*y(t)
+    %        y'(t) = c*x(t) + d*y(t)
     %   for use with the Brain Dynamics Toolbox.
     %
     % Example 1: Using the Brain Dynamics graphical toolbox
-    %   sys = IdenticalLovers();      % construct the system struct
-    %   gui = bdGUI(sys);             % open the Brain Dynamics GUI
+    %   sys = LinearODE();      % construct the system struct
+    %   gui = bdGUI(sys);       % open the Brain Dynamics GUI
     %
-    % Example 2: Using the Brain Dynamics command-line solver
-    %   sys = LinearODE();                              % system struct
-    %   sys.pardef = bdSetValue(sys.pardef,'a',-2);      % parameter a=-2
-    %   sys.pardef = bdSetValue(sys.pardef,'b',1);     % parameter b=1
-    %   sys.vardef = bdSetValue(sys.vardef,'x',rand);   % variable x=rand
-    %   sys.vardef = bdSetValue(sys.vardef,'y',rand);   % variable y=rand
-    %   tspan = [0 10];                                 % soln time span
-    %   sol = bdSolve(sys,tspan);                       % call the solver
-    %   tplot = 0:0.1:10;                               % plot time domain
-    %   Y = bdEval(sol,tplot);                          % extract solution
-    %   plot(tplot,Y);                                  % plot the result
+    % Example 2: Using the Brain Dynamics command-line tools
+    %   sys = LinearODE();                 % system struct
+    %   sys = bdSetPar(sys,'a',1);         % parameter a=1
+    %   sys = bdSetPar(sys,'b',-1);        % parameter b=-1
+    %   sys = bdSetPar(sys,'c',10);        % parameter c=10
+    %   sys = bdSetPar(sys,'d',-2);        % parameter d=-2
+    %   sys = bdSetVar(sys,'x',rand);      % variable x=rand
+    %   sys = bdSetVar(sys,'y',rand);      % variable y=rand
+    %   tspan = [0 10];                    % soln time span
+    %   sol = bdSolve(sys,tspan);          % call the solver
+    %   tplot = 0:0.1:10;                  % plot time domain
+    %   Y = bdEval(sol,tplot);             % extract solution
+    %   plot(tplot,Y);                     % plot the result
     %   xlabel('time'); ylabel('x,y');
     %
     % Authors
-    %   Stewart Heitmann (2017a,2018a)
+    %   Stewart Heitmann (2017a,2018a,2019ab,2020a)
 
-    % Copyright (C) 2016-2018 QIMR Berghofer Medical Research Institute
+    % Copyright (C) 2016-2021 QIMR Berghofer Medical Research Institute
     % All rights reserved.
     %
     % Redistribution and use in source and binary forms, with or without
@@ -56,21 +59,28 @@ function sys = IdenticalLovers()
     sys.odefun = @odefun;
 
     % ODE parameter definitions
-    sys.pardef = [struct('name','a', 'value',-2, 'lim',[-4 0]);
-                  struct('name','b', 'value',1,  'lim',[0 4])];
+    sys.pardef = [
+        struct('name','a', 'value', 1)
+        struct('name','b', 'value',-1)
+        struct('name','c', 'value',10)
+        struct('name','d', 'value',-2)
+        ];
+
     % ODE variable definitions
-    sys.vardef = [ struct('name','H', 'value',2*rand-1);
-                   struct('name','C', 'value',2*rand-1) ];
+    sys.vardef = [
+        struct('name','x', 'value',2*rand - 1, 'lim',[-1 1])
+        struct('name','y', 'value',2*rand - 1, 'lim',[-1 1])
+        ];
 
     % Latex (Equations) panel
     sys.panels.bdLatexPanel.title = 'Equations';
     sys.panels.bdLatexPanel.latex = {
-        '$\textbf{Identical Lovers}$';
-        '';
-        'System of linear ordinary differential equations';
-        '{ }{ }{ } $\dot H(t) = a\,H(t) + b\,C(t)$';
-        '{ }{ }{ } $\dot C(t) = b\,H(t) + a\,C(t),$';
-        'where $a,b$ are constants.';
+        '$\textbf{Linear 2D System}$'
+        ''
+        'System of linear ordinary differential equations'
+        '{ }{ }{ } $\dot x(t) = a\,x(t) + b\,y(t)$'
+        '{ }{ }{ } $\dot y(t) = c\,x(t) + d\,y(t)$'
+        'where $a,b,c,d\;$ are scalar constants.'
         };
 
     % Time Portrait panel
@@ -79,13 +89,12 @@ function sys = IdenticalLovers()
     % Phase Portrait panel
     sys.panels.bdPhasePortrait.nullclines = 'off';
     sys.panels.bdPhasePortrait.vectorfield = 'on';
-    % sys.panels.bdPhasePortrait = [];
 
     % Solver panel
     % sys.panels.bdSolverPanel = [];
 
     % Default time span (optional)
-    sys.tspan = [0 5];
+    sys.tspan = [0 4];
 
     % Specify the relevant ODE solvers (optional)
     sys.odesolver = {@ode45,@ode23,@odeEul};
@@ -93,11 +102,17 @@ function sys = IdenticalLovers()
     % ODE solver options (optional)
     sys.odeoption.RelTol = 1e-6;        % Relative Tolerance
     sys.odeoption.Jacobian = @jacfun;   % Handle to Jacobian function
+    sys.odeoption.InitialStep = 0.01;   % Required by odeEul solver
 end
 
 % The ODE function.
 % The variables Y and dYdt are both (2x1) vectors.
-% The parameters a,b are scalars.
-function dYdt = odefun(t,Y,a,b)
-    dYdt = [a b; b a] * Y;              % matrix multiplication
+% The parameters a,b,c,d are scalars.
+function dYdt = odefun(t,Y,a,b,c,d)
+    dYdt = [a b; c d] * Y;              % matrix multiplication
+end
+
+% The Jacobian function (otional).
+function J = jacfun(t,Y,a,b,c,d)
+    J = [a b; c d];
 end
