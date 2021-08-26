@@ -46,14 +46,15 @@ In this case it adds text to my input string:
 contradictMe('I think this will be a boring tutorial.')
 ```
 
-Be aware of this `@()` notation for defining inline functions—it can be a handy thing to know about!
+So now you know about `@()` notation for defining inline functions.
+It is a handy thing to know about! :smile:
 
 ### Setting Up
 
-To complete this tutorial, you will first need to __download__ the [_Brain Dynamics Toolbox_](https://sourceforge.net/projects/bdtoolbox/).
+To complete this tutorial, you will first need to [download the _Brain Dynamics Toolbox_](https://bdtoolbox.org/).
 
 To access the functionality of the _Brain Dynamics Toolbox_, you will need to tell Matlab where to look.
-Navigate to the directory in which the _Brain Dynamics Toolbox_ is installed and run the following code:
+Navigate to the _Brain Dynamics Toolbox_ directory (that you just downloaded and unzipped) and run the following code:
 
 ```matlab
 % Tell Matlab to look in the current directory:
@@ -62,9 +63,9 @@ addpath(pwd)
 addpath(fullfile(pwd,'models'))
 ```
 
-Then move your Matlab directory back to the directory containing the material for this tutorial (all tutorials assume that you will run all code from within the tutorial directory).
+Then move your Matlab directory back to the directory containing the material for this tutorial (all tutorials assume that code will be run from the tutorial directory).
 
-Now we're ready to get started.
+:sweat_smile: Now we're ready to get started.
 
 ## Part 1: The Linear Ordinary Differential Equation (ODE)
 
@@ -93,7 +94,7 @@ bdGUI(sys);
 
 #### Getting familiar with the interactive plots in _BDT_
 
-__HOT TIP__: The 'Phase Portrait: Calibrate' option calibrates the axis limits to reveal the full range of the current trajectory.
+__:boom: HOT TIP :boom:__: The 'Phase Portrait: Calibrate' option calibrates the axis limits to reveal the full range of the current trajectory.
 
 1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider (also in the 'Time Domain' panel).
    Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots).
@@ -123,9 +124,12 @@ In lectures, we found that this system has a saddle point at the origin, with ei
 3. Normalize each eigenvector (columns of `v`) by its first value to verify the eigendirections identified in lectures.
 
 Identify the values of _a_, _b_, _c_, and _d_ for the definition of the linear ODE and use _BDT_ to verify that the vector field is consistent with the qualitative portrait presented the lecture and reproduced below.
-(NB: Due to the unstable eigendirection, `v_1`, the system will flow out to infinity, so it helps to set a very tight time range by clicking the 'Time Domain' setting, e.g., up to 2 time units).
+
+_Note:_ Due to the unstable eigendirection, `v_1`, the system will flow out to infinity, so it helps to set a very tight time range by clicking the 'Time Domain' tickbox, e.g., up to a maximum of 1 time unit.
 
 Change the initial conditions to verify that you can get the predicted shapes of trajectories shown in the predicted phase portrait.
+
+_Suggestion:_ You can click the 'Initial Conditions' tickbox to set a range for x and y as -1 to 1, and then explore the system's behavior by clicking the RAND button.
 
 ![Phase portrait](figs/LinearDynamicalSystem.png)
 
