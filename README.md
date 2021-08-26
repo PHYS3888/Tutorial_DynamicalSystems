@@ -210,23 +210,24 @@ Have a quick play with the parameters `a` and `b`.
 
 #### More cautious than enthusiastic: `|a| > |b|`
 
-Remember that we analysing the system with a<0 and b>0, so `|a| > |b|` corresponds to both lovers displaying more cautiousness (|a|) than enthusiasm (|b|).
+Remember that we analysing the system with _a_ < 0 and _b_ > 0, so |_a_| > |_b_| corresponds to both lovers displaying more cautiousness (|_a_|) than enthusiasm (|_b_|).
 
 What happens to such a relationship in the long term?
 
-Start with `|a|` only slightly larger than `|b|` (e.g., `a = -1.2`, `b = 1`): we should have a stable node at the origin.
+Start with |_a_| only slightly larger than |_b_| (e.g., `a = -1.2`, `b = 1`): we should have a stable node at the origin.
 Since `|lambda_2| > |lambda_1|`, we expect movement to be faster along the `v_2` direction, and then slower along the `v_1` direction toward the origin.
 Play with some different initial conditions and verify that the system displays this behavior.
 
 Look at both the Time Portrait and the Phase Portrait (and don't forget to use the 'Calibrate' option if you can't see the grey circle representing the final state of the system).
 
-What do you expect to happen as you increase `|a|` (make `a` more negative)?
+What do you expect to happen as you increase |_a_| (make _a_ more negative)?
 Can you verify this behavior?
 
 :question::question::question:
-Starting at `(H,C) = (-0.5,1)`, and setting `b = 1`, inspect the Time Portrait to determine the highest value of `a` (i.e., minimal `|a|`) for which love dies (`H < 0.1` and `C < 0.1`) within just three days?
+Starting at `(H,C) = (-0.5,1)`, and setting `b = 1`, inspect the Time Portrait to determine the highest value of `a` (i.e., minimal |_a_|) for which love dies (`H < 0.1` and `C < 0.1`) within just three days?
+Pick from the four options provided: _a_ = -1.8, -1.6, -1.4, -1.2.
 _Hint:_ you may wish to use the 'Time Domain' slider (and the 'Data Cursor').
-Give your answer to one decimal place.
+
 
 #### Daring and responsive: `|a| < |b|`
 
