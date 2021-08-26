@@ -129,7 +129,7 @@ _Note:_ Due to the unstable eigendirection, `v_1`, the system will flow out to i
 
 Change the initial conditions to verify that you can get the predicted shapes of trajectories shown in the predicted phase portrait.
 
-_Suggestion:_ You can click the 'Initial Conditions' tickbox to set a range for x and y as -1 to 1, and then explore the system's behavior by clicking the RAND button.
+_Suggestion:_ You can click the 'Initial Conditions' tickbox to set a range for _x_ and _y_ as -1 to 1, and then explore the system's behavior by clicking the RAND button.
 
 ![Phase portrait](figs/LinearDynamicalSystem.png)
 
@@ -138,7 +138,7 @@ _Suggestion:_ You can click the 'Initial Conditions' tickbox to set a range for 
 Imagine that these equations describe the water currents, and that apart from a safe region near the origin, evil octopuses are rampant :octopus::octopus::octopus:.
 A rescue chopper is on its way and will arrive in 15 minutes.
 
-If you can be dropped somewhere on the boundary of the safe zone (defined by `-1 < x < 1` and `-1 < y < 1`), where would you choose to be dropped to give yourself the longest time in safe waters (and thus maximize your chances of being saved).
+If you can be dropped somewhere on the boundary of the safe zone (defined by -1 < _x_ < 1 and -1 < _y_ < 1), where would you choose to be dropped to give yourself the longest time in safe waters (and thus maximize your chances of being saved).
 
 Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box after starting at `(x0,y0)` (note that this function adds a tiny amount of measurement noise around where you tell it to start).
 
@@ -181,7 +181,7 @@ In terms of behaviour in the relationship, can you explain in words what do the 
 Let's consider the cautious case, where _a_ < 0 (both avoid throwing themselves at each other) and _b_ > 0 (both respond positively to advances from the other).
 
 Think about the eigenvalues/eigenvectors of this system:
-`v_1 = [1,1]`, `lambda_1 = a+b` and `v_2 = [1,-1]`, `lambda_2 = a-b`.
+`v_1 = [1,1]`, `lambda_1 = a + b` and `v_2 = [1,-1]`, `lambda_2 = a - b`.
 (Do you remember from lectures how to compute these results?)
 
 Let's think about the system's stability, determined by the sign of the two eigenvalues.
