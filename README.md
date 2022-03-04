@@ -3,7 +3,7 @@
 In this tutorial we will test our knowledge of dynamical systems using the [Brain Dynamics Toolbox](https://bdtoolbox.org/).
 Some of the material from this tutorial is based on information developed by Stuart Heitmann (the mind behind the Brain Dynamics Toolbox).
 
-## Prework
+## Pre-work
 
 ### Inline functions
 
@@ -28,7 +28,7 @@ You can also define functions with multiple inputs:
 makeACopyPlease = @(a,b) [a,b,a,b];
 ```
 
-This makes a row-vector containing the two inputs concatinated twice in order:
+This makes a row-vector containing the two inputs concatenated twice in order:
 
 ```matlab
 makeACopyPlease(3,5)
@@ -133,17 +133,20 @@ _Suggestion:_ You can click the 'Initial Conditions' tickbox to set a range for 
 
 ![Phase portrait](figs/LinearDynamicalSystem.png)
 
-#### Thinking inside the box :sweat: :octopus:
+### Thinking inside the box :sweat: :octopus:
 
 Imagine that these equations describe the water currents, and that apart from a safe region near the origin, evil octopuses are rampant :octopus::octopus::octopus:.
 A rescue chopper is on its way and will arrive in 15 minutes.
 
 If you can be dropped somewhere on the boundary of the safe zone (defined by -1 < _x_ < 1 and -1 < _y_ < 1), where would you choose to be dropped to give yourself the longest time in safe waters (and thus maximize your chances of being saved).
 
-Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box after starting at `(x0,y0)` (note that this function adds a tiny amount of measurement noise around where you tell it to start).
+Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box after starting at `(x0,y0)` (note that this function adds a tiny amount of measurement noise around where you tell it to start). Do not alter this function in answering the following questions.
 
-:question::question::question: What is the longest duration that you can keep the system in the box?
-Where did you start the system?
+:question::question::question: __Q1:__
+To keep yourself inside the box for as long as possible, where should your start?
+
+:question::question::question: __Q2:__
+What is the longest duration that you can keep yourself in the box? Give you answer in minutes to one decimal place.
 
 ![Killer Octopus](figs/theBox.png)
 
@@ -151,9 +154,12 @@ Where did you start the system?
 
 Let's try a system with _a_ = 1, _b_ = -1, _c_ = 10, _d_ = -2.
 
-:question::question::question: What are the eigenvalues of this system?
+:question::question::question: __Q3:__
+What are the eigenvalues of this system? (Give your answers to two decimal places).
 
-:question::question::question: What sort of dynamics should it have?
+:question::question::question: __Q4:__
+Starting the system at some general point, _(x,y)_, what sort of dynamics do you predict?
+Select the description that best matches your prediction from the options provided.
 
 Verify your prediction by inputting these parameters into `BDT` and playing with initial conditions across an appropriate range.
 
@@ -223,7 +229,7 @@ Look at both the Time Portrait and the Phase Portrait (and don't forget to use t
 What do you expect to happen as you increase |_a_| (make _a_ more negative)?
 Can you verify this behavior?
 
-:question::question::question:
+:question::question::question: __Q5:__
 Starting at `(H,C) = (-0.5,1)`, and setting `b = 1`, inspect the Time Portrait to determine the highest value of `a` (i.e., minimal |_a_|) for which love dies (`H < 0.1` and `C < 0.1`) within just three days?
 Pick from the four options provided: _a_ = -1.8, -1.6, -1.4, -1.2.
 _Hint:_ you may wish to use the 'Time Domain' slider (and the 'Data Cursor').
@@ -265,7 +271,7 @@ Here we're going to focus our analysis on the system's fixed points at a given s
 We start by understanding how population-average voltages can be converted to population-average firing rates using the sigmoid function:
 
 ```matlab
-Q = @(V) Qmax./(1+exp(-(V-theta)/sigma));
+Q = @(V) Qmax./(1 + exp(-(V - theta)/sigma));
 ```
 
 Here we have used the `@(x)` syntax to define an inline Matlab function (as described in the pre-work).
@@ -278,7 +284,8 @@ theta = 10; % mV
 sigma = 3; % mV
 ```
 
-#### :question::question::question: Firing-rate function
+:question::question::question:
+__Q6:__ Firing-rate function
 
 Using this sigmoidal function, match the mean cell-body potentials relative to resting (mV) to their corresponding firing rates (Hz).
 Note where appreciable firing rates (>~1 Hz) emerge.
@@ -303,15 +310,19 @@ Our experimenting above demonstrated a dependence of the system's stable states 
 To understand this structure, we can numerically plot a bifurcation diagram of the system's stable fixed points as a function of `Ds`.
 Open the bifurcation panel ('New Panel -> Bifurcation') and use the upper left button (three horizontal lines) do put `Ds` on the _x_-axis and `Vw` on the _y_-axis.
 
-#### :question::question::question: Falling asleep
+#### Falling asleep
 
 Set an initial condition corresponding to a wake state, and then slide through values of `Ds` across the range `[0,3.5]`.
-At what critical value of `Ds` does the system 'fall to sleep'?
-(_You may wish to increase the total time in the Time Domain, e.g., to 20s, to better resolve the critical point_)
 
-#### :question::question::question: Waking up
+:question::question::question: __Q7:__
+At what critical value of `Ds` does the system 'fall to sleep'?
+(_Hint:_ You may wish to increase the total time in the Time Domain, e.g., to 20s, to better resolve the critical point.)
+
+#### Waking up
 
 Set an initial condition corresponding to a sleep state, and then slide through values of `Ds` across the range `[0,3.5]`.
+
+:question::question::question: __Q8:__
 At what critical value of `Ds` does the system 'wake up'?
 
 ### Simulating a daily circadian rhythm
@@ -323,16 +334,19 @@ Drag the sleep drive, `Ds`, up and down, simulating cycling between sleep and wa
 
 Do a few sweeps left and right, saying 'sleep' and 'wake' out aloud whenever the system makes a transition :yum:
 
-#### :question::question::question: Modelling narcolepsy by weakening the flip-flop
+#### Modeling narcolepsy by weakening the flip-flop
 
 One of the theories of how the sleep disorder, narcolepsy, manifests, is through a weakening of the mutual inhibition between the wake-active and sleep-active populations.
 Perhaps people born with a reduced level of this inhibition have less robustness in their sleep and wake states (and therefore display narcoleptic symptoms)?
 
 The `v_sw` parameter controls the inhibition strength from the wake population to the sleep population, and in normal humans has an estimated value `v_sw = -2.1`.
-Map out the stable sleep and wake states as a function of `Ds` to construct bifurcation diagrams as before, but now repeat this process for progressive reductions in wake-to-sleep inhibition, `v_sw` (you can use the 'Bifurcation -> Clear Axes' functionality to clean things up).
-As you repeat this process, determine the value of `v_sw` at which the bistable region disappears.
+Map out the stable sleep and wake states as a function of `Ds` to construct bifurcation diagrams as before, but now repeat this process for progressive reductions in magnitude of wake-to-sleep inhibition, `|v_sw|` (you can use the 'Bifurcation -> Clear Axes' functionality to clean things up).
+Repeat this process, progressively increasing `v_sw`, to estimate the value of `v_sw` at which the bistable region disappears.
+
+:question::question::question: __Q9:__
+At what value of `v_sw` does the bistable region disappear?
 
 ## :fire: I want more! :fire:
 
 - If you're interested, there are some fascinating other systems in the `models` directory of the Brain Dynamics Toolbox.
-- Some papers describing the sleep-wake model developed here at The University of Sydney are [here](https://dx.doi.org/10.1098/rsta.2011.0120), [here](https://dx.doi.org/10.1103/physreve.78.051920), and [here](https://dx.doi.org/10.1016/j.jtbi.2010.02.028).
+- Some papers describing the sleep-wake model developed here in the School of Physics are [here](https://dx.doi.org/10.1098/rsta.2011.0120), [here](https://dx.doi.org/10.1103/physreve.78.051920), and [here](https://dx.doi.org/10.1016/j.jtbi.2010.02.028).
