@@ -337,7 +337,7 @@ Do a few sweeps left and right, saying 'sleep' and 'wake' out aloud whenever the
 #### Modeling narcolepsy by weakening the flip-flop
 
 One of the theories of how the sleep disorder, narcolepsy, manifests, is through a weakening of the mutual inhibition between the wake-active and sleep-active populations.
-Perhaps people born with a reduced level of this inhibition have less robustness in their sleep and wake states (and therefore display narcoleptic symptoms)?
+Perhaps people born with a reduced level of this inhibition have less distinctive sleep and wake states (and therefore display narcoleptic symptoms)?
 
 The `v_sw` parameter controls the inhibition strength from the wake population to the sleep population, and in normal humans has an estimated value `v_sw = -2.1`.
 Map out the stable sleep and wake states as a function of `Ds` to construct bifurcation diagrams as before, but now repeat this process for progressive reductions in magnitude of wake-to-sleep inhibition, `|v_sw|` (you can use the 'Bifurcation -> Clear Axes' functionality to clean things up).
