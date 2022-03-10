@@ -140,7 +140,7 @@ A rescue chopper is on its way and will arrive in 15 minutes.
 
 If you can be dropped somewhere on the boundary of the safe zone (defined by -1 < _x_ < 1 and -1 < _y_ < 1), where would you choose to be dropped to give yourself the longest time in safe waters (and thus maximize your chances of being saved).
 
-Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box after starting at `(x0,y0)` (note that this function adds a tiny amount of measurement noise around where you tell it to start). Do not alter this function in answering the following questions.
+Use the `TimeToExitBox(x0,y0)` function to evaluate when you first leave the box (time in minutes) after starting at `(x0,y0)` (note that this function adds a tiny amount of measurement noise around where you tell it to start). Do not alter this function in answering the following questions.
 
 :question::question::question: __Q1:__
 To keep yourself inside the box for as long as possible, where should your start?
