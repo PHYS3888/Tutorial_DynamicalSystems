@@ -309,7 +309,7 @@ Where does the system end up?
 
 Our experimenting above demonstrated a dependence of the system's stable states on the sleep drive, `Ds` (including a _bistable region_ where ___both___ sleep and wake are stable).
 To understand this structure, we can numerically plot a bifurcation diagram of the system's stable fixed points as a function of `Ds`.
-Open the bifurcation panel ('New Panel -> Bifurcation') and use the upper left button (three horizontal lines) do put `Ds` on the _x_-axis and `Vw` on the _y_-axis.
+Open the bifurcation panel ('New Panel -> Bifurcation 2D') and use the upper left button (three horizontal lines) do put `Ds` on the _x_-axis and `Vw` on the _y_-axis.
 
 #### Falling asleep
 
