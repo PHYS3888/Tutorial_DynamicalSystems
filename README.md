@@ -94,12 +94,11 @@ bdGUI(sys);
 
 #### Getting familiar with the interactive plots in _BDT_
 
-__:boom: HOT TIP :boom:__: The 'Phase Portrait: Calibrate' option calibrates the axis limits to reveal the full range of the current trajectory.
-
-1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider (also in the 'Time Domain' panel).
+1. Verify that the equation solutions are re-evaluated immediately as you change the initial conditions using the slider in the 'Phase Portrait 2D' panel (and also in the 'Time Portrait' panel).
    Set a range of initial conditions on `x` and `y` by selecting the 'Initial Conditions' checkbox (and note that this determines the range of `x` and `y` shown in the plots).
    Verify that you can now set specific initial conditions within this range by pressing the 'RAND' button.
-2. Turn on the 'Vector Field' option and watch different random trajectories follow the flow.
+2. Make sure the 'Vector Field' option is turned on (from the 'Phase Portrait 2D' Menu), and watch different random trajectories follow the flow.
+    - __NB__: Be aware that some versions of the toolbox visualize this arrows pointing in the direction of flow, while other versions use 'telltales' (which point in the direction of flow as if wind was blowing on a piece of ribbon).
 3. Walk through time by dragging the 'Time Domain' slider.
 4. What happens to the dynamics when you alter the model parameters using the scale bar?
    Verify that you can change the parameter ranges shown on the scale bar by checking the 'Parameters' tick box.
@@ -107,7 +106,9 @@ __:boom: HOT TIP :boom:__: The 'Phase Portrait: Calibrate' option calibrates the
    - decays to the origin, and
    - spirals out towards infinity.
 
-Verify that you understand these two cases in the 'Time Portrait' and the 'Phase Portrait' views.
+Verify that you understand these two cases in both the 'Time Portrait' and 'Phase Portrait' views.
+
+__:boom: HOT TIP :boom:__: The 'Phase Portrait: Calibrate' option calibrates the axis limits to reveal the full range of the current trajectory.
 
 ### Solving a linear system
 
