@@ -263,7 +263,7 @@ Let's load up the system:
 
 ```matlab
 sys = SleepWake();
-bdGUI(sys)
+sleepSys = bdGUI(sys);
 ```
 
 The model's key variables are `Vs` (sleep) and `Vw` (wake), tell us about how the mean cell-body potential across neurons in each population vary across time.
@@ -317,7 +317,8 @@ Set an initial condition corresponding to a wake state, and then slide through v
 
 :question::question::question: __Q7:__
 At what critical value of `Ds` does the system 'fall to sleep'?
-(_Hint:_ You may wish to increase the total time in the Time Domain, e.g., to 20s, to better resolve the critical point.)
+
+(:fire: If you want to better resolve the critical point, you can increase the total time in the Time Domain, e.g., to 10s.)
 
 #### Waking up
 
@@ -330,19 +331,28 @@ At what critical value of `Ds` does the system 'wake up'?
 
 Biologically, the sleep drive, `Ds`, has two components: an oscillatory circadian component `C` (with an approximately 24h period), and a homeostatic component, `H`, that grows with time awake and decays during recovery sleep.
 We can simulate this daily cycle by varying `Ds` up and down.
-Turn on the `evolve` button, which starts the next simulation with an initial condition corresponding to the final state of the previous simulation.
+
+Switch on the "Evolve" button, which starts the next simulation with an initial condition corresponding to the final state of the previous simulation.
 Drag the sleep drive, `Ds`, up and down, simulating cycling between sleep and wake, noting the effect of hysteresis in the model.
 
 Do a few sweeps left and right, saying 'sleep' and 'wake' out aloud whenever the system makes a transition :yum:
 
-#### Modeling narcolepsy by weakening the flip-flop
+#### :fire::fire: [Optional]: Algorithmic sweeping
+
+Instead of manually sliding through values of `Ds`, you can also tell the toolbox to do this sweep using code.
+First, make sure the "Evolve" button is switched on, then set a range to sweep over, e.g., `DsRange = [linspace(0,3.5,50),linspace(3.5,0,50)];` (for a resolution of 50 points in both directions).
+You can then tell the toolbox to sweep through this range as: `for i = 1:length(dsRange), sleepSys.par.Ds = DsRange(i); end`.
+
+### Modeling narcolepsy by weakening the flip-flop
 
 One of the theories of how the sleep disorder, narcolepsy, manifests, is through a weakening of the mutual inhibition between the wake-active and sleep-active populations.
 Perhaps people born with a reduced level of this inhibition have less distinctive sleep and wake states (and therefore display narcoleptic symptoms)?
 
 The `v_sw` parameter controls the inhibition strength from the wake population to the sleep population, and in normal humans has an estimated value `v_sw = -2.1`.
-Map out the stable sleep and wake states as a function of `Ds` to construct bifurcation diagrams as before, but now repeat this process for progressive reductions in magnitude of wake-to-sleep inhibition, `|v_sw|` (you can use the 'Bifurcation -> Clear Axes' functionality to clean things up).
-Repeat this process, progressively increasing `v_sw`, to estimate the value of `v_sw` at which the bistable region disappears.
+
+Map out the stable sleep and wake states as a function of `Ds` to construct bifurcation diagrams as before, but now repeat this process for progressive reductions in magnitude of wake-to-sleep inhibition, `|v_sw|` (you can use the 'Bifurcation 2D -> Clear' functionality to clean things up).
+
+Repeat this process, progressively decreasing the magnitude of `v_sw`, to estimate the value of `v_sw` at which the bistable region disappears.
 
 :question::question::question: __Q9:__
 At what value of `v_sw` does the bistable region disappear?
