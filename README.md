@@ -341,7 +341,14 @@ Do a few sweeps left and right, saying 'sleep' and 'wake' out aloud whenever the
 
 Instead of manually sliding through values of `Ds`, you can also tell the toolbox to do this sweep using code.
 First, make sure the "Evolve" button is switched on, then set a range to sweep over, e.g., `DsRange = [linspace(0,3.5,50),linspace(3.5,0,50)];` (for a resolution of 50 points in both directions).
-You can then tell the toolbox to sweep through this range as: `for i = 1:length(dsRange), sleepSys.par.Ds = DsRange(i); end`.
+
+You can then tell the toolbox to sweep through this range as:
+
+```matlab
+for i = 1:length(DsRange)
+    sleepSys.par.Ds = DsRange(i);
+end
+```
 
 ### Modeling narcolepsy by weakening the flip-flop
 
