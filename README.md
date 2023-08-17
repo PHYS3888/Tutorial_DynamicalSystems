@@ -46,6 +46,13 @@ In this case it adds text to my input string:
 contradictMe('I think this will be a boring tutorial.')
 ```
 
+It's also a handy way to plot a function using `fplot` and specifying a range of inputs:
+
+```matlab
+f = @(x) sin(x.^2).*exp(-x) - 2*cos(x.^3); % function to plot
+fplot(f,[-3,3]) % plot function f over the domain [-3,3]
+```
+
 So now you know about `@()` notation for defining inline functions.
 It is a handy thing to know about! :smile:
 
