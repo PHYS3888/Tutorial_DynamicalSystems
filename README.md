@@ -72,6 +72,8 @@ addpath(fullfile(pwd,'models'))
 
 Then move your Matlab directory back to the directory containing the material for this tutorial (all tutorials assume that code will be run from the tutorial directory).
 
+[_Note_: An alternative is to right-click on this directory in the Matlab File Browser and select 'Add to Path -> Selected Folders and Subfolders'.]
+
 :sweat_smile: Now we're ready to get started.
 
 ## Part 1: The Linear Ordinary Differential Equation (ODE)
